@@ -4,22 +4,20 @@ import { numbers } from "./data";
 
 function App() {
   const [squares, setSquares] = useState(numbers);
-  let [currentShooterIndex, setCurrentShooterIndex] = useState(176);
+  let [currentShooterIndex, setCurrentShooterIndex] = useState(217);
 
   const alienInvaders = [
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 30,
-    31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
+    31, 32, 33, 34, 35, 36, 37, 38, 39,
   ];
 
   useEffect(() => {
     document.addEventListener("keydown", (e) => {
       if (e.key === "ArrowLeft" && currentShooterIndex >= 170) {
         setCurrentShooterIndex((currentShooterIndex -= 1));
-        console.log("left", currentShooterIndex);
       }
       if (e.key === "ArrowRight" && currentShooterIndex <= 182) {
         setCurrentShooterIndex((currentShooterIndex += 1));
-        console.log("right", currentShooterIndex);
       }
       return () => {
         window.removeEventListener("keydown");
@@ -27,19 +25,35 @@ function App() {
     });
   }, [currentShooterIndex]);
 
+  function isInvader(array, index) {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i] === index) {
+        return true;
+      }
+    }
+  }
+
+  function isShooter(array, index) {
+    for (let i = index; i < array.length; i++) {
+      if (index === currentShooterIndex) {
+        return true;
+      }
+    }
+  }
   return (
     <div className="container">
       <div className="grid">
-        <div className="invader-container">
-          {alienInvaders.map((i, index) => {
-            return <div key={index} className="invaders"></div>;
-          })}
-        </div>
         {squares.map((i, index) => {
           return (
             <div
-              key={i}
-              className={index === currentShooterIndex ? "shooter" : "square"}
+              key={index}
+              className={
+                isInvader(alienInvaders, index)
+                  ? "invaders"
+                  : isShooter(squares, index)
+                  ? "shooter"
+                  : "square"
+              }
             ></div>
           );
         })}
