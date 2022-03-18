@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.css";
 import { numbers } from "./data";
 
 function App() {
   const [squares, setSquares] = useState(numbers);
-  let [currentShooterIndex, setCurrentShooterIndex] = useState(177);
+  let [currentShooterIndex, setCurrentShooterIndex] = useState(176);
 
   const alienInvaders = [
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 30,
@@ -12,17 +12,20 @@ function App() {
   ];
 
   useEffect(() => {
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowLeft") {
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft" && currentShooterIndex >= 170) {
         setCurrentShooterIndex((currentShooterIndex -= 1));
-        console.log(currentShooterIndex);
+        console.log("left", currentShooterIndex);
       }
-      if (e.key === "ArrowRight") {
+      if (e.key === "ArrowRight" && currentShooterIndex <= 182) {
         setCurrentShooterIndex((currentShooterIndex += 1));
-        console.log(currentShooterIndex);
+        console.log("right", currentShooterIndex);
       }
+      return () => {
+        window.removeEventListener("keydown");
+      };
     });
-  }, []);
+  }, [currentShooterIndex]);
 
   return (
     <div className="container">
