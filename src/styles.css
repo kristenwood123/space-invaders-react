@@ -19,10 +19,10 @@ body {
   border: 1px solid white;
 }
 
-.grid div{
+.square{
   width: 20px;
   height: 20px;
-  background-color: black;
+  /* background-color: black; */
 }
 
 .invader {
@@ -35,4 +35,7 @@ body {
 
 .shooter {
   background-color: red;
+  color: red;
+  width: 20px;
+  height: 20px;
 }
