@@ -5,6 +5,7 @@ import { numbers } from "./data";
 function App() {
   const [squares, setSquares] = useState(numbers);
   let [currentShooterIndex, setCurrentShooterIndex] = useState(217);
+  let width = 15;
 
   const alienInvaders = [
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 30,
@@ -13,10 +14,10 @@ function App() {
 
   useEffect(() => {
     document.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowLeft" && currentShooterIndex >= 170) {
+      if (e.key === "ArrowLeft" && currentShooterIndex % width !== 0) {
         setCurrentShooterIndex((currentShooterIndex -= 1));
       }
-      if (e.key === "ArrowRight" && currentShooterIndex <= 182) {
+      if (e.key === "ArrowRight" && currentShooterIndex % width < width - 1) {
         setCurrentShooterIndex((currentShooterIndex += 1));
       }
       return () => {
@@ -36,6 +37,7 @@ function App() {
   function isShooter(array, index) {
     for (let i = index; i < array.length; i++) {
       if (index === currentShooterIndex) {
+        console.log(currentShooterIndex);
         return true;
       }
     }
