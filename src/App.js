@@ -5,6 +5,8 @@ import { numbers } from "./data";
 function App() {
   const [squares, setSquares] = useState(numbers);
   let [currentShooterIndex, setCurrentShooterIndex] = useState(217);
+  const [invaders, setInvaders] = useState();
+
   let width = 15;
 
   const alienInvaders = [
@@ -34,14 +36,34 @@ function App() {
     }
   }
 
-  function isShooter(array, index) {
-    for (let i = index; i < array.length; i++) {
-      if (index === currentShooterIndex) {
-        console.log(currentShooterIndex);
+  function removeInvader(array, index) {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i] === index) {
         return true;
       }
     }
   }
+
+  function isShooter(array, index) {
+    for (let i = index; i < array.length; i++) {
+      if (index === currentShooterIndex) {
+        return true;
+      }
+    }
+  }
+
+  // function moveInvaders(alienInvaders) {
+  //   const leftEdge = alienInvaders[0] % width === 0;
+  //   const rightEdge =
+  //     alienInvaders[alienInvaders.length - 1] % width === width - 1;
+  //   removeInvader(alienInvaders);
+
+  //   for (let i = 0; i < alienInvaders.length; i++) {
+  //     alienInvaders[i] += 1;
+  // isInvader(alienInvaders, i);
+  //   }
+  // }
+
   return (
     <div className="container">
       <div className="grid">
