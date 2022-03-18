@@ -22,13 +22,19 @@ body {
 .square{
   width: 20px;
   height: 20px;
-  /* background-color: black; */
 }
 
+.invader-container {
+  width: 220px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
 .invader {
   width: 20px;
   height: 20px;
-  color: purple;
   background-color: purple;
   border-radius: 10px;
 }
