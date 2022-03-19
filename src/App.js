@@ -11,6 +11,9 @@ function App() {
   ]);
 
   let width = 15;
+  let direction = 1;
+  let invadersId;
+  let goingRight = true;
 
   useEffect(() => {
     document.addEventListener("keydown", (e) => {
@@ -51,20 +54,32 @@ function App() {
   }
 
   function moveInvaders(invaders) {
-    // const leftEdge = alienInvaders[0] % width === 0;
-    // const rightEdge =
-    //   alienInvaders[alienInvaders.length - 1] % width === width - 1;
-    // removeInvader(alienInvaders);
-    invaders = invaders.map((alien) => {
-      return (alien += 1);
-    });
-    // console.log(invaders[0]);
-    // setInvaders(invaders);
-  }
+    const leftEdge = invaders[0] % width === 0;
+    const rightEdge = invaders[invaders.length - 1] % width === width - 1;
 
-  useEffect(() => {
-    setInterval(() => moveInvaders(invaders), 1000);
-  });
+    if (rightEdge && goingRight) {
+      for (let i = 0; i < invaders.length; i++) {
+        invaders[i] += width + 1;
+        direction = -1;
+        goingRight = false;
+      }
+    }
+
+    if (leftEdge && !goingRight) {
+      for (let i = 0; i < invaders.length; i++) {
+        invaders[i] += width - 1;
+        direction = -1;
+        goingRight = true;
+      }
+    }
+
+    invaders = invaders.map((alien) => {
+      return (alien += direction);
+    });
+    setInvaders(invaders);
+    clearInterval(handleAlienMove);
+  }
+  const handleAlienMove = setInterval(() => moveInvaders(invaders), 1000);
 
   return (
     <div className="container">
@@ -81,9 +96,7 @@ function App() {
                   : "square"
               }
               style={{ color: "white", fontSize: "12px" }}
-            >
-              {index}
-            </div>
+            ></div>
           );
         })}
       </div>
