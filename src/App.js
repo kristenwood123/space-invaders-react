@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import "./styles.css";
 import { numbers } from "./data";
 
 function App() {
   const [squares, setSquares] = useState(numbers);
   let [currentShooterIndex, setCurrentShooterIndex] = useState(217);
-  const [invaders, setInvaders] = useState();
-
-  let width = 15;
-
-  const alienInvaders = [
+  let [invaders, setInvaders] = useState([
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 30,
     31, 32, 33, 34, 35, 36, 37, 38, 39,
-  ];
+  ]);
+
+  let width = 15;
 
   useEffect(() => {
     document.addEventListener("keydown", (e) => {
@@ -52,17 +50,21 @@ function App() {
     }
   }
 
-  // function moveInvaders(alienInvaders) {
-  //   const leftEdge = alienInvaders[0] % width === 0;
-  //   const rightEdge =
-  //     alienInvaders[alienInvaders.length - 1] % width === width - 1;
-  //   removeInvader(alienInvaders);
+  function moveInvaders(invaders) {
+    // const leftEdge = alienInvaders[0] % width === 0;
+    // const rightEdge =
+    //   alienInvaders[alienInvaders.length - 1] % width === width - 1;
+    // removeInvader(alienInvaders);
+    invaders = invaders.map((alien) => {
+      return (alien += 1);
+    });
+    // console.log(invaders[0]);
+    // setInvaders(invaders);
+  }
 
-  //   for (let i = 0; i < alienInvaders.length; i++) {
-  //     alienInvaders[i] += 1;
-  // isInvader(alienInvaders, i);
-  //   }
-  // }
+  useEffect(() => {
+    setInterval(() => moveInvaders(invaders), 1000);
+  });
 
   return (
     <div className="container">
@@ -72,13 +74,16 @@ function App() {
             <div
               key={index}
               className={
-                isInvader(alienInvaders, index)
+                isInvader(invaders, index)
                   ? "invaders"
                   : isShooter(squares, index)
                   ? "shooter"
                   : "square"
               }
-            ></div>
+              style={{ color: "white", fontSize: "12px" }}
+            >
+              {index}
+            </div>
           );
         })}
       </div>
@@ -87,3 +92,8 @@ function App() {
 }
 
 export default App;
+
+// const alienInvaders = [
+//   0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 30,
+//   31, 32, 33, 34, 35, 36, 37, 38, 39,
+// ];
