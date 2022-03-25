@@ -26,7 +26,6 @@ body {
 }
 
 .invader-container {
-  /* width: 220px; */
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -37,13 +36,11 @@ body {
 .invaders {
   width: 20px;
   height: 20px;
-  background-color: purple;
-  border-radius: 10px;
+  background-image: url('../public/kisspng-space-invaders-video-game-pac-man-computer-icons-space-invaders-5ac4f29bd6a425.8644933515228566038792.png');
+  background-size: contain;
 }
 
 .shooter {
-  background-color: red;
-  color: red;
-  width: 20px;
-  height: 20px;
+  background-image: url('../public/PngItem_5011901.png');
+  background-size: contain;
 }

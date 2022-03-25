@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import "./styles.css";
 import { numbers } from "./data";
 import Squares from "./Squares";
+import { RiSpaceShipFill } from "react-icons";
 
 function App() {
   const [squares, setSquares] = useState(numbers);
@@ -17,19 +18,9 @@ function App() {
   let goingRight = true;
   let width = 15;
 
-  // useRef is shooter
-
   function removeInvader(array, index) {
     for (let i = 0; i < array.length; i++) {
       if (array[i] === index) {
-        return true;
-      }
-    }
-  }
-
-  function isShooter(array, index) {
-    for (let i = index; i < array.length; i++) {
-      if (index === currentShooterIndex) {
         return true;
       }
     }
