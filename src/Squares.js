@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
 import classNames from "classnames";
-import { RiSpaceShipFill } from "react-icons/ri";
-import { GiAlienSkull } from "react-icons/gi";
 
 const Squares = ({
   currentShooterIndex,
@@ -42,9 +40,7 @@ const Squares = ({
     <div
       style={{ color: "white", fontSize: "12px" }}
       className={wrapperClasses}
-    >
-      {/* {index === invaders[index] && <GiAlienSkull />} */}
-    </div>
+    ></div>
   );
 };
 
