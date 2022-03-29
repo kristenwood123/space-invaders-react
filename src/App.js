@@ -14,28 +14,38 @@ function App() {
     31, 32, 33, 34, 35, 36, 37, 38, 39,
   ]);
 
-  const [status, setStatus] = useState("");
+  let [status, setStatus] = useState("");
+  let [currentLaserIndex, setCurrentLaserIndex] = useState(currentShooterIndex);
   let width = 15;
   let invadersId;
 
-  function moveInvaders(invaders) {
+  useEffect(() => {
+    setInterval(() => moveInvaders(invaders), 200);
+  }, []);
+
+  const moveInvaders = () => {
     const leftEdge = invaders[0] % width === 0;
     const rightEdge = invaders[invaders.length - 1] % width === width - 1;
 
     if (rightEdge && goingRight) {
-      setDirection(-1);
-      setGoingRight(!goingRight);
-    }
+      invaders = invaders.map((alien) => {
+        setDirection(-1);
+        setGoingRight(false);
 
-    if (leftEdge && !goingRight) {
+        return (alien += width + 1);
+      });
+    } else if (leftEdge && !goingRight) {
+      invaders = invaders.map((alien) => {
+        return (alien += width - 1);
+      });
       setDirection(1);
-      setGoingRight(!goingRight);
+      setGoingRight(true);
+    } else {
+      invaders = invaders.map((alien) => {
+        return (alien += direction);
+      });
     }
-
-    invaders = invaders.map((alien) => {
-      return (alien += direction);
-    });
-    // setInvaders(invaders);
+    setInvaders(invaders);
 
     if (invaders.indexOf(currentShooterIndex) !== -1) {
       setStatus("Game Over!");
@@ -47,16 +57,8 @@ function App() {
         clearInterval(invadersId);
       }
     }
-
     clearInterval(invadersId);
-  }
-  invadersId = setInterval(() => moveInvaders(invaders), 200);
-
-  // function shoot() {
-  //   let laserId;
-  //   let currentLaserIndex = currentShooterIndex;
-  //   function moveLaser() {}
-  // }
+  };
 
   return (
     <div className="container">
@@ -66,12 +68,15 @@ function App() {
           return (
             <Squares
               key={i}
+              squares={squares}
               index={index}
               currentShooterIndex={currentShooterIndex}
               setCurrentShooterIndex={setCurrentShooterIndex}
               invaders={invaders}
               moveInvaders={moveInvaders}
               width={width}
+              currentLaserIndex={currentLaserIndex}
+              setCurrentLaserIndex={setCurrentLaserIndex}
             />
           );
         })}
