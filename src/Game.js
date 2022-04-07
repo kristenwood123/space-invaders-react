@@ -3,18 +3,19 @@ import Grid from "./Grid";
 import StartButton from "./StartButton";
 import Display from "./Display";
 import { createGrid } from "./data";
-import { StyledWrapper } from "./styles/StyledWrapper";
-import { StyledGame } from "./styles/StyledGame";
+import { StyledGame, StyledGameWrapper } from "./styles/StyledWrapper";
 
 const Game = () => {
   return (
-    <StyledGame>
-      <Grid grid={createGrid()} />
-      <aside>
-        <Display text="Score" />
-      </aside>
-      <StartButton />
-    </StyledGame>
+    <StyledGameWrapper>
+      <StyledGame>
+        <Grid grid={createGrid()} />
+        <aside>
+          <Display text="Score" />
+        </aside>
+        <StartButton />
+      </StyledGame>
+    </StyledGameWrapper>
   );
 };
 
