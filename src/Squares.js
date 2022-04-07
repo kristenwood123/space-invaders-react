@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import classNames from "classnames";
+import { keyboardImplementationWrapper } from "@testing-library/user-event/dist/keyboard";
 
 const Squares = ({
   currentShooterIndex,
@@ -10,11 +11,13 @@ const Squares = ({
   width,
   currentLaserIndex,
   setCurrentLaserIndex,
+  isLaserActive,
+  setIsLaserActive,
 }) => {
   const wrapperClasses = classNames("square", {
     shooter: currentShooterIndex === index,
     invaders: isInvader(invaders, index),
-    laser: isLaser(squares, index),
+    laser: isLaserActive,
   });
 
   useEffect(() => {
@@ -27,24 +30,19 @@ const Squares = ({
         setCurrentShooterIndex((currentShooterIndex += 1));
       }
       return () => {
-        window.removeEventListener("keydown");
+        window.addEventListener('keydown')
+        
       };
     });
   }, [currentShooterIndex]);
 
-  function isLaser(squares, index) {
-    let laserId = (currentShooterIndex -= width);
-    if (squares[index] === laserId) {
-      return true;
-    }
-  }
   useEffect(() => {
-    console.log(currentLaserIndex);
-    if (currentLaserIndex === 209) return true;
     // document.addEventListener("keydown", (e) => {
     // if (e.key === "ArrowUp") {
     //   laserId = setInterval(moveLaser(squares, currentLaserIndex), 100);
     // }
+    if (currentLaserIndex === 209) return true;
+
     // return () => {
     //   window.removeEventListener("keydown");
     // };
@@ -66,12 +64,14 @@ const Squares = ({
       }
     }
   }
-
+  const handleShoot = () => {};
   return (
-    <div
-      style={{ color: "white", fontSize: "12px" }}
-      className={wrapperClasses}
-    ></div>
+    <>
+      <div
+        style={{ color: "white", fontSize: "12px" }}
+        className={wrapperClasses}
+      ></div>
+    </>
   );
 };
 
