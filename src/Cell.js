@@ -3,11 +3,14 @@ import { StyledCell } from "./styles/StyledCell";
 
 const Cell = ({ type }) => {
   return (
-    <div style={{ color: "white" }}>
-      <StyledCell type={"L"} color={"black"}>
-        Cell
-      </StyledCell>
-    </div>
+    <div
+      style={{
+        border: "white",
+        background: "black",
+        height: "15px",
+        width: "15px",
+      }}
+    ></div>
   );
 };
 export default Cell;
